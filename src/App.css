@@ -1,0 +1,12 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+table, th, td {
+  border-collapse: separate;
+  border-spacing: 0px;
+}
