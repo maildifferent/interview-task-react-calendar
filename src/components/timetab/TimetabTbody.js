@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { isEventsKeysEqual } from '../../utilities/isEventsKeysEqual'
+import { stringFromEventKey } from '../../utilities/stringFromEventKey'
 import TimetabTd from "./TimetabTd"
 
 const TimetabFirstTr = styled.tr`
@@ -45,37 +47,27 @@ function renderRow(
   activeEvent,
   activeEventChangeHandler
 ) {
-  const key = ('0' + hour).slice(-2)
   return (
-    <tr key={key}>
+    <tr key={hour}>
       <LeftTextTd>{('0' + hour).slice(-2) + ':00'}</LeftTextTd>
 
       {weekDaysArr.map((yeMoDa) => {
-        const { year, month, date } = yeMoDa
-        const currEvent = {...yeMoDa, hour, active: false, occupied: false}
+        const currEvent = { ...yeMoDa, hour, active: false, occupied: false }
 
-        const key = year + ('0' + month).slice(-2)
-          + ('0' + date).slice(-2) + ('0' + hour).slice(-2)
-
-        if (activeEvent
-          && activeEvent.year === year
-          && activeEvent.month === month
-          && activeEvent.date === date
-          && activeEvent.hour === hour
+        if (
+          activeEvent && isEventsKeysEqual(currEvent, activeEvent)
         ) currEvent.active = true
 
         for (let i = 0; i < eventsArr.length; i++) {
           const event = eventsArr[i]
-          if (event.year !== year) continue
-          if (event.month !== month) continue
-          if (event.date !== date) continue
-          if (event.hour !== hour) continue
-          currEvent.occupied = true
-          break
+          if (isEventsKeysEqual(currEvent, event)) {
+            currEvent.occupied = true
+            break
+          }
         }
 
         return (<TimetabTd
-          key={key}
+          key={stringFromEventKey(currEvent)}
           timecellEvent={currEvent}
           activeChangeHandler={activeEventChangeHandler}
         />)

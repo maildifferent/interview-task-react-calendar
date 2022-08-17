@@ -30,17 +30,17 @@ const WeekScrollerDiv = styled.div`
 function WeekScrollerTr(props) {
 
   const shiftLeftHandler = () => {
-    const {year, month, date} = props.firstDay
+    const {year, month, date} = props.firstDate
     const firstDate = new Date(year, month, date - 7)
     const datesArr = getDates(firstDate, 7)
-    props.setWeekDaysArrHandler(datesArr)
+    props.setDatesArrHandler(datesArr)
   }
 
   const shiftRightHandler = () => {
-    const {year, month, date} = props.lastDay
+    const {year, month, date} = props.lastDate
     const firstDate = new Date(year, month, date + 1)
     const datesArr = getDates(firstDate, 7)
-    props.setWeekDaysArrHandler(datesArr)
+    props.setDatesArrHandler(datesArr)
   }
 
   return (
@@ -49,7 +49,7 @@ function WeekScrollerTr(props) {
       <td colSpan={7}>
         <WeekScrollerDiv>
           <HeadButton onClick={shiftLeftHandler}>{ARROW_LEFT}</HeadButton>
-          <div>{MONTHES[props.lastDay.month] + ' ' + props.lastDay.year}</div>
+          <div>{MONTHES[props.lastDate.month] + ' ' + props.lastDate.year}</div>
           <HeadButton onClick={shiftRightHandler}>{ARROW_RIGHT}</HeadButton>
         </WeekScrollerDiv>
       </td>
