@@ -1,5 +1,5 @@
 Test example link:
-https://maildif-task-react-calendar.herokuapp.com/
+https://task-react-calendar.onrender.com/
 
 Small calendar app. Made using:
 - Javascript
